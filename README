@@ -1,0 +1,25 @@
+Helper scripts to build the speech-dispatcher-voxin package.
+
+Example: packages for Ubuntu 16.10
+
+* build the i386 package under VM1 (Ubuntu 16.10 32 bits)
+cd speech-dispatcher-voxin
+./build.sh
+
+# the build.i386 directory contains the i386 package
+
+* build the amd64 package under VM2 (Ubuntu 16.10 64 bits)
+cd speech-dispatcher-voxin
+./build.sh
+
+# the build.amd64 directory contains the amd64 package
+
+* sign these packages
+cd speech-dispatcher-voxin
+./sign.sh
+
+# the signed packages are available in build.i386.sig and build.amd64.sig
+
+* copy the packages to the voxin installer
+rm $VOXIN_INSTALLER/packages/ubuntu.16.10/speech-dispatcher-voxin*
+cp build.{i386,amd64}.sig/*deb $VOXIN_INSTALLER/packages/ubuntu.16.10
