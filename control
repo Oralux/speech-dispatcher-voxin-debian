@@ -4,34 +4,30 @@ Priority: optional
 Maintainer: Gilles Casse <gcasse@oralux.org>
 XSBC-Original-Maintainer: Debian TTS Team <tts-project@lists.alioth.debian.org>
 Uploaders:
- Paul Gevers <elbrus@debian.org>, Samuel Thibault <sthibault@debian.org>
+ Paul Gevers <elbrus@debian.org>
 Build-Depends:
  automake,
  autotools-dev,
- debhelper (>= 9.20150628),
+ debhelper (>= 9),
  dh-autoreconf,
  flite1-dev (>= 1.4),
  libvoxin1,
  intltool,
- libao-dev,
  libasound2-dev [linux-any],
- libaudio-dev,
- libdotconf-dev (>= 1.3),
+ libdotconf-dev,
  libespeak-dev,
  libglib2.0-dev,
  libltdl-dev,
  libpulse-dev,
  libtool,
  libxau-dev,
- libsndfile1-dev,
-# libttspico-dev,
  python3,
  texinfo
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=tts/speech-dispatcher.git;a=summary
 Vcs-Git: git://anonscm.debian.org/tts/speech-dispatcher.git
 Homepage: http://devel.freebsoft.org/speechd
 X-Python-Version: >= 3.0
-Standards-Version: 3.9.8
+Standards-Version: 3.9.5
 
 Package: speech-dispatcher
 Architecture: any
@@ -42,7 +38,7 @@ Depends:
  ${misc:Depends},
  ${shlibs:Depends}
 Recommends:
-# pulseaudio
+ pulseaudio
 Suggests:
  libttspico-utils,
  speech-dispatcher-doc-cs,
@@ -69,6 +65,7 @@ Depends:
  ${misc:Depends},
  ${shlibs:Depends}
 Pre-Depends:
+ multiarch-support,
  ${misc:Pre-Depends}
 Description: Speech Dispatcher: Shared libraries
  Speech Dispatcher provides a device independent layer for speech synthesis.
@@ -221,6 +218,28 @@ Description: Speech Dispatcher: Flite output module
  .
  This package contains the output module for the flite speech synthesizer.
 
+Package: speech-dispatcher-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends:
+ libspeechd2 (= ${binary:Version}),
+ speech-dispatcher (= ${binary:Version}),
+ speech-dispatcher-festival (= ${binary:Version}),
+ ${misc:Depends}
+Description: Speech Dispatcher debugging symbols
+ Speech Dispatcher provides a device independent layer for speech synthesis.
+ It supports various software and hardware speech synthesizers as
+ backends and provides a generic layer for synthesizing speech and
+ playing back PCM data via those different backends to applications.
+ .
+ Various high level concepts like enqueueing vs. interrupting speech and
+ application specific user configurations are implemented in a device
+ independent way, therefore freeing the application programmer from
+ having to yet again reinvent the wheel.
+ .
+ This package contains the debugging symbols for Speech Dispatcher.
+
 Package: speech-dispatcher-audio-plugins
 Architecture: any
 Multi-arch: same
@@ -228,7 +247,7 @@ Depends:
  ${misc:Depends},
  ${shlibs:Depends}
 Pre-Depends:
- ${misc:Pre-Depends}
+ multiarch-support
 Breaks:
  speech-dispatcher (<< 0.8-1)
 Replaces:
@@ -253,7 +272,7 @@ Depends:
  ${misc:Depends},
  ${shlibs:Depends}
 Replaces:
- speech-dispatcher-ibmtts
+ speech-dispatcher-ibmtts, ia32-speech-dispatcher-ibmtts
 Description: Speech Dispatcher: voxin output module
  Speech Dispatcher provides a device independent layer for speech synthesis.
  This package contains the output module for voxin.

@@ -3,19 +3,16 @@
 unset PV
 
 function build_pkg() {
-	local ARCH=
-	if [ -n "$1" ]; then
-		ARCH="-a $1"
-	fi
 	rm -rf src
 	cp -a src.orig src
 	cp control changelog speech-dispatcher-voxin.install src/speech-dispatcher-$PV/debian
 
 	cd src/speech-dispatcher-$PV
-	dpkg-buildpackage -uc -us $ARCH
+	dpkg-buildpackage -uc -us
 	cd ../..	
 }
 
+sudo apt-get install fakeroot
 if [ ! -d src.orig ]; then
     mkdir src.orig
     cd src.orig
@@ -40,4 +37,4 @@ build_pkg $ARCH
 find src -maxdepth 1 -name 'speech-dispatcher-voxin*' -type f -exec mv {} build.$ARCH \;
 
 echo sudo apt-get remove speech-dispatcher-voxin
-echo sudo dpkg -i build.$ARCH.sig/speech-dispatcher-voxin_${PV}-0voxin1_$ARCH.deb 
+echo sudo dpkg -i build.$ARCH.sig/speech-dispatcher-voxin_${PV}-5voxin1_$ARCH.deb 
