@@ -1,30 +1,85 @@
-speech-dispatcher (0.8.5-0voxin1) yakkety; urgency=medium
+speech-dispatcher (0.8.6-5voxin1) unstable; urgency=medium
 
+  * ibmtts.c: eciNewDict must be called before eciAddText
   * Build the ibmtts module on libvoxin
 
- -- Gilles Casse <gcasse@oralux.org>  Sun, 8 Oct 2016 10:16:02 +0200
+ -- Gilles Casse <gcasse@oralux.org>  Sun, 25 Mar 2017 17:14:00 +0100
 
-speech-dispatcher (0.8.5-0ubuntu2) yakkety; urgency=medium
+speech-dispatcher (0.8.6-4) unstable; urgency=medium
 
-  * Check if /var/log/speech-dispatcher exists before changing the owner
-    (LP: #1616302)
+  * Fix stripped audio output of flite module (Closes: #856895).
 
- -- Luke Yelavich <themuso@ubuntu.com>  Wed, 24 Aug 2016 15:59:45 +1000
+ -- Samuel Thibault <sthibault@debian.org>  Sun, 05 Mar 2017 23:13:08 +0100
 
-speech-dispatcher (0.8.5-0ubuntu1) yakkety; urgency=medium
+speech-dispatcher (0.8.6-3) unstable; urgency=medium
 
+  [ Samuel Thibault ]
+  * Relax dependency between speech-dispatcher and speech-dispatcher-contrib a
+    bit: Require only same upstream version.  Avoids installability issues
+    with binNMU (Closes: #854091).
+
+  [ Luke Yelavich ]
+  * Set the default output module to espeak-ng (Closes: #854106).
+
+ -- Samuel Thibault <sthibault@debian.org>  Sat, 04 Feb 2017 10:59:22 +0100
+
+speech-dispatcher (0.8.6-1) unstable; urgency=medium
+
+  [ Luke Yelavich ]
   * New upstream release
 
- -- Luke Yelavich <themuso@ubuntu.com>  Wed, 17 Aug 2016 15:34:29 +1000
+ -- Samuel Thibault <sthibault@debian.org>  Tue, 10 Jan 2017 00:32:44 +0100
 
-speech-dispatcher (0.8.4-2ubuntu1) yakkety; urgency=medium
+speech-dispatcher (0.8.5-6) unstable; urgency=medium
 
-  * Merge with Debian; remaining changes:
-    - Moved the flite output module to a separate package, and added
-      it to suggests, we don't want flite on the Ubuntu CD image
-    - debian/gbp.conf: Adjust for the Ubuntu git branch
+  * contrib: Make speech-dispatcher module packages depend on same version of
+    speech-dispatcher, and replace old speech-dispatcher package. Fix
+    speech-dispatcher-pico content.
 
- -- Luke Yelavich <themuso@ubuntu.com>  Tue, 28 Jun 2016 15:01:35 +1000
+ -- Samuel Thibault <sthibault@debian.org>  Mon, 05 Dec 2016 23:44:12 +0100
+
+speech-dispatcher (0.8.5-5) unstable; urgency=medium
+
+  [ Luke Yelavich ]
+  * Split out cicero, espeak, espeak-ng, and flite modules into separate
+    packages
+  * Add speech-dispatcher-espeak-ng to the speech-dispatcher package
+    recommends, and add all other synth module packages to suggests
+
+  [ Samuel Thibault ]
+  * Rename speech-dispatcher-contrib package into speech-dispatcher-pico.
+
+ -- Samuel Thibault <sthibault@debian.org>  Sun, 04 Dec 2016 23:41:58 +0100
+
+speech-dispatcher (0.8.5-4) unstable; urgency=medium
+
+  * Fix installing the espeak-ng module.
+
+ -- Samuel Thibault <sthibault@debian.org>  Thu, 17 Nov 2016 01:20:03 +0100
+
+speech-dispatcher (0.8.5-3) unstable; urgency=medium
+
+  * Add espeak-ng support.
+
+ -- Samuel Thibault <sthibault@debian.org>  Thu, 10 Nov 2016 00:42:55 +0100
+
+speech-dispatcher (0.8.5-2) unstable; urgency=medium
+
+  * Restore recommandation of pulseaudio to fix speech after default
+    installation.
+  * speech-dispatcher.docs: Install documentation figures.
+  * patches/doc-figures: Patch texinfo paths to figures into our doc path.
+
+ -- Samuel Thibault <sthibault@debian.org>  Sun, 09 Oct 2016 18:37:29 +0200
+
+speech-dispatcher (0.8.5-1) unstable; urgency=medium
+
+  [ Luke Yelavich ]
+  * New upstream release
+  * debian/speech-dispatcher.postinst: Make sure /var/log/speech-dispatcher
+    exists before changing the owner, just to be safe
+
+ -- Samuel Thibault <sthibault@debian.org>  Sun, 04 Sep 2016 22:55:57 +0200
 
 speech-dispatcher (0.8.4-2) unstable; urgency=medium
 
@@ -53,35 +108,9 @@ speech-dispatcher (0.8.4-1) unstable; urgency=medium
 
  -- Samuel Thibault <sthibault@debian.org>  Mon, 23 May 2016 00:01:43 +0200
 
-speech-dispatcher (0.8.3-1ubuntu3) xenial; urgency=medium
-
-  * Re-add support for libao and libaudio, these are in main, and we ship
-    DVD sized images these days
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri, 19 Feb 2016 08:47:59 +1100
-
-speech-dispatcher (0.8.3-1ubuntu2) xenial; urgency=medium
-
-  * libspeechd-dev: Add a libspeechd_version.h symlink (fixing navit
-    build failure).
-
- -- Matthias Klose <doko@ubuntu.com>  Tue, 09 Feb 2016 12:44:57 +0100
-
-speech-dispatcher (0.8.3-1ubuntu1) xenial; urgency=medium
-
-  * Merge with Debian; remaining changes:
-    - Moved the flite output module to a separate package, and added
-      it to suggests, we don't want flite on the Ubuntu CD image
-    - Don't build depend on libaudio-dev or libao-dev, Ubuntu CD size is an
-      issue, every little bit helps
-    - debian/gbp.conf: Adjust for the Ubuntu git branch
-
- -- Matthias Klose <doko@ubuntu.com>  Tue, 09 Feb 2016 12:30:52 +0100
-
 speech-dispatcher (0.8.3-1) experimental; urgency=medium
 
   [ Samuel Thibault ]
->>>>>>> debian/0.8.4-2
   * control: Add myself as uploader, drop multiarch pre-depend.
   * Bump Standards-Version to 3.9.6 (no changes).
 
@@ -106,53 +135,6 @@ speech-dispatcher (0.8.3-1) experimental; urgency=medium
 
  -- Samuel Thibault <sthibault@debian.org>  Sun, 25 Oct 2015 11:50:20 +0100
 
-<<<<<<< HEAD
-speech-dispatcher (0.8.3-0ubuntu2) wily; urgency=medium
-
-  * Cherry-pick some patches from upstream to fix pkg-config includedir issues
-    and finding libspeechd_version.h
-
- -- Luke Yelavich <themuso@ubuntu.com>  Thu, 23 Jul 2015 16:23:56 +1000
-
-speech-dispatcher (0.8.3-0ubuntu1) wily; urgency=medium
-
-  * New upstream release
-  * Update copyright file
-  * Add libsndfile1-dev build dependency
-  * Update symbols
-
- -- Luke Yelavich <themuso@ubuntu.com>  Tue, 23 Jun 2015 15:24:40 +1000
-
-speech-dispatcher (0.8.1-0ubuntu1) vivid; urgency=medium
-
-  [ Samuel Thibault ]
-  * control: Add myself as uploader.
-  * Bump Standards-Version to 3.9.6 (no changes).
-
-  [ Luke Yelavich ]
-  * The speech-dispatcher user should not have a shell set (Closes: #678951)
-  * New upstream release
-  * Dropped patches, applied upstream:
-    - configurable-module-dir.patch
-    - cs-docs.patch
-    - espeak-mbrola-generic.conf.patch
-    - fdl.patch
-    - fix_spelling_errors_reported_by_lintian.patch
-    - infinite-loop.patch
-    - pico-generic.patch
-    - spd_audio-Expose-dlopened-library-s-symbols-to-libs-.patch
-    - update_documentation_with_xdg_path.patch
-  * Merge with debian unstable.  Remaining changes:
-    - Moved the flite output module to a separate package, and added
-      it to suggests, we don't want flite on the Ubuntu CD image
-    - Don't build depend on libaudio-dev or libao-dev, Ubuntu CD size is an
-      issue, every little bit helps
-    - debian/gbp.conf: Adjust for the Ubuntu git branch
-
- -- Luke Yelavich <themuso@ubuntu.com>  Tue, 06 Jan 2015 09:46:13 +1100
-
-=======
->>>>>>> debian/0.8.4-2
 speech-dispatcher (0.8-9) unstable; urgency=medium
 
   * Do not make speech-dispatcher-contrib depend on pulseaudio, as libao works
@@ -175,39 +157,11 @@ speech-dispatcher (0.8-7) unstable; urgency=medium
 
  -- Luke Yelavich <themuso@ubuntu.com>  Fri, 05 Dec 2014 09:06:54 +1100
 
-speech-dispatcher (0.8-6ubuntu2) utopic; urgency=medium
-
-  * The speech-dispatcher user should not have a shell set (LP: #1319970)
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri, 16 May 2014 13:26:30 +1000
-
-speech-dispatcher (0.8-6ubuntu1) utopic; urgency=medium
-
-  * Merge with debian unstable.  Remaining changes:
-    - Moved the flite output module to a separate package, and added
-      it to suggests, we don't want flite on the Ubuntu CD image
-    - Don't build depend on libaudio-dev or libao-dev, Ubuntu CD size is an
-      issue, every little bit helps
-    - debian/gbp.conf: Adjust for the Ubuntu git branch
-
- -- Luke Yelavich <themuso@ubuntu.com>  Mon, 28 Apr 2014 15:11:12 +1000
-
 speech-dispatcher (0.8-6) unstable; urgency=low
 
   * Remove dotconf 1.3 workaround as it is now available in sid
 
  -- Paul Gevers <elbrus@debian.org>  Mon, 17 Mar 2014 20:09:21 +0100
-
-speech-dispatcher (0.8-5ubuntu1) trusty; urgency=low
-
-  * Merge with debian unstable.  Remaining changes:
-    - Moved the flite output module to a separate package, and added
-      it to suggests, we don't want flite on the Ubuntu CD image
-    - Don't build depend on libaudio-dev or libao-dev, Ubuntu CD size is an
-      issue, every little bit helps
-    - debian/gbp.conf: Adjust for the Ubuntu git branch
-
- -- Luke Yelavich <themuso@ubuntu.com>  Wed, 19 Feb 2014 17:06:41 +1100
 
 speech-dispatcher (0.8-5) unstable; urgency=low
 
@@ -334,29 +288,6 @@ speech-dispatcher (0.7.1-6.2) unstable; urgency=low
 
  -- Samuel Thibault <sthibault@debian.org>  Fri, 07 Dec 2012 01:28:18 +0100
 
-speech-dispatcher (0.7.1-6.1ubuntu2) quantal; urgency=low
-
-  * debian/speech-dispatcher.install: Don't install all modules wholesale,
-    the flite module is in another package, and would cause file
-    conflict errors if it was installed. (LP: #1039264)
-
- -- Luke Yelavich <themuso@ubuntu.com>  Tue, 21 Aug 2012 13:04:09 +1000
-
-speech-dispatcher (0.7.1-6.1ubuntu1) quantal-proposed; urgency=low
-
-  * Merge from debian unstable.  Remaining changes:
-    - Moved the flite output module to a separate package, and added
-      it to suggests, we don't want flite on the Ubuntu CD image
-    - Don't build depend on libaudio-dev or libao-dev, Ubuntu CD size is an
-      issue, every little bit helps
-    - debian/gbp.conf: Adjust for the Ubuntu git branch
-  * Backport a patch from upstream to use python3 bindings, and adjust the
-    python bindings package accordingly.
-  * Bumped debhelper version to fix lintian warning.
-  * Python3-speechd needs to conflict against python-speechd
-
- -- Luke Yelavich <themuso@ubuntu.com>  Wed, 27 Jun 2012 15:55:10 +1000
-
 speech-dispatcher (0.7.1-6.1) unstable; urgency=low
 
   * Non-maintainer upload.
@@ -368,45 +299,6 @@ speech-dispatcher (0.7.1-6.1) unstable; urgency=low
     (Closes: #646388)
 
  -- gregor herrmann <gregoa@debian.org>  Fri, 17 Feb 2012 16:16:34 +0100
-
-speech-dispatcher (0.7.1-6ubuntu3) precise; urgency=low
-
-  * debian/speech-dispatcher.postinst: Make sure speech-dispatcher is not
-    enabled as a system service for users upgrading from lucid. The code
-    in question has been dropped, and should have been done so a long time
-    ago, at least for Ubuntu. (LP: #914575)
-  * Tweak gbp.conf for precise
-  * debian/rules: Do not re-run the configure script as a dependency of the
-    clean target. It is not needed, and makes dealing with packaging in git
-    a pain.
-  * Do not copy fresh copies of config.{sub,guess}, we run autoreconf.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Mon, 06 Feb 2012 13:48:00 +1100
-
-speech-dispatcher (0.7.1-6ubuntu2) precise; urgency=low
-
-  * No-change rebuild to drop spurious libsfgcc1 dependency on armhf.
-
- -- Adam Conrad <adconrad@ubuntu.com>  Fri, 02 Dec 2011 19:01:31 -0700
-
-speech-dispatcher (0.7.1-6ubuntu1) oneiric; urgency=low
-
-  * Merge from debian unstable.  Remaining changes:
-    - Moved the flite output module to a separate package, and added
-      it to suggests, we don't want flite on the Ubuntu CD image
-    - Dont build depend on libaudio-dev or libao-dev, Ubuntu CD size is an
-      issue, every little bit helps
-
-  [ Boris Dušek ]
-  * debian/gbp.conf: Adjust for the Ubuntu git branch
-
-  [ Luke Yelavich ]
-  * Use dh_autoreconf rather than running build.sh
-  * Add symbols file for libspeechd2
-  * Need to run dh_makeshlibs for speech-dispatcher so that
-    speech-dispatcher-flite can find the audio output library
-
- -- Luke Yelavich <themuso@ubuntu.com>  Mon, 06 Jun 2011 12:08:39 +1000
 
 speech-dispatcher (0.7.1-6) unstable; urgency=low
 
@@ -472,47 +364,6 @@ speech-dispatcher (0.7.1-1) experimental; urgency=low
 
  -- Milan Zamazal <pdm@debian.org>  Mon, 13 Sep 2010 16:48:58 +0200
 
-speech-dispatcher (0.7.1-0ubuntu3) natty; urgency=low
-
-  * Rebuild for python2.7, don't hard-code 2.6 in the install files.
-
- -- Matthias Klose <doko@ubuntu.com>  Tue, 11 Jan 2011 16:43:18 +0100
-
-speech-dispatcher (0.7.1-0ubuntu2) natty; urgency=low
-
-  * debian/rules: Set the start/stop runlevels to be the same as in the init
-    script LSB header, thanks to kvdveer for the patch (LP: #671541)
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri, 05 Nov 2010 15:10:37 -0400
-
-speech-dispatcher (0.7.1-0ubuntu1) natty; urgency=low
-
-  [ Luke Yelavich ]
-  * Merge from debian unstable.  Remaining changes:
-    - Python-speechd should depend on speech-dispatcher
-    - Moved the flite output module to a separate package, and added
-      it to suggests
-    - Use cdbs for package build, cleaner to maintain
-  * Set-PulseAudio-media-role-to-a11y.patch: Drop, not accepted upstream
-
-  [ Boris Dusek ]
-  * New upstream release
-  * debian/patches/fix-mbrola-voice-path.patch: Fix path to mbrola voices
-    in configuration file template to match that in Ubuntu
-  * debian/patches/paths+files.patch: rebased on upstream (partially fixed)
-  * debian/patches/python-makefile.patch: drop, obsolete
-  * debian/patches/pulse-only.patch: drop, fixed
-  * debian/patches/flite-1.4-fix.patch: drop, fixed
-  * debian/patches/extlink.patch: drop, fixed
-  * debian/patches/python-makefile.patch: rebased on upstream
-  * quieten-logfiles.patch: drop, LogLevel 3 was revised upstream to
-    include less information
-  * disable-modules.patch: drop, unnecessary: declaring a non-existing
-    synthesizer when a previously declared one works does nothing
-  * pulse-endianness.patch: drop, fixed
-
- -- Luke Yelavich <themuso@ubuntu.com>  Mon, 18 Oct 2010 11:00:42 +1100
-
 speech-dispatcher (0.7-5.1) unstable; urgency=low
 
   * Non-maintainer upload.
@@ -524,44 +375,6 @@ speech-dispatcher (0.7-5.1) unstable; urgency=low
     to be set to revert to system-wide behavior.
 
  -- Samuel Thibault <sthibault@debian.org>  Sun, 26 Sep 2010 16:17:19 +0200
-
-speech-dispatcher (0.7-5ubuntu3) maverick; urgency=low
-
-  * debian/patches/Set-PulseAudio-media-role-to-a11y.patch: Patch to set
-    Speech Dispatcher's media role, sent up stream.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Thu, 12 Aug 2010 15:45:46 +1000
-
-speech-dispatcher (0.7-5ubuntu2) maverick; urgency=low
-
-  * debian/patches/fix-broken-spdconf.patch: Replace with correct fix from
-    git. Thanks to Boris Dusek for the patch
-  * debian/patches/spd-conf-test-path-fix.patch: Drop, fixed in a better way
-    already
-
- -- Luke Yelavich <themuso@ubuntu.com>  Mon, 19 Jul 2010 16:13:21 +0200
-
-speech-dispatcher (0.7-5ubuntu1) maverick; urgency=low
-
-  * Merge from debian unstable.  Remaining changes:
-    - Python-speechd should depend on speech-dispatcher
-    - Moved the flite output module to a separate package, and added
-      it to suggests
-    - Use cdbs for package build, cleaner to maintain
-    - Quieten logfiles by default
-    - Only enable espeak output module
-    - Fix pulse driver endainness
-    - Fix broken spd-conf
-  * debian/speech-dispatcher.init: Don't assume that the user was previously
-    running speech-dispatcher system-wide, at least in Ubuntu
-  * Remove references to speechd-server-spawn and speechd-user-port.sh, since
-    speech-dispatcher now has a different way of spawning, and uses sockets
-    (LP: #601114)
-  * Flite patch from Debian fixes FTBFs (LP: #601005)
-  * debian/patches/spd-conf-test-path-fix.patch: Fix path to test.wav file
-    which gets played by spd-conf (LP: #314185)
-
- -- Luke Yelavich <themuso@ubuntu.com>  Thu, 15 Jul 2010 14:30:18 +1000
 
 speech-dispatcher (0.7-5) unstable; urgency=low
 
@@ -602,218 +415,6 @@ speech-dispatcher (0.7-1) unstable; urgency=low
   * Standards 3.8.4 (no real change).
 
  -- Milan Zamazal <pdm@debian.org>  Sat, 19 Jun 2010 09:08:43 +0200
-
-speech-dispatcher (0.6.8~unofficial~rc2-0ubuntu3) lucid; urgency=low
-
-  * debian/patches/07_fix_broken_spdconf.dpatch: Fix broken spd-conf code, which
-    caused spd-conf to be run whenever anyone tried to search for help about a
-    python module. (LP: #534190)
-
- -- Luke Yelavich <themuso@ubuntu.com>  Thu, 15 Apr 2010 10:39:49 +1000
-
-speech-dispatcher (0.6.8~unofficial~rc2-0ubuntu2) lucid; urgency=low
-
-  * debian/patches/06_pulse_endianness.dpatch: Set the correct endianness of
-    the audio sample to be played.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Wed, 14 Apr 2010 15:57:51 +1000
-
-speech-dispatcher (0.6.8~unofficial~rc2-0ubuntu1) lucid; urgency=low
-
-  * New unofficial upstream snapshot
-
- -- Luke Yelavich <themuso@ubuntu.com>  Wed, 17 Feb 2010 09:48:08 +1100
-
-speech-dispatcher (0.6.8~unofficial~rc1-0ubuntu1) lucid; urgency=low
-
-  * New unofficial upstream snapshot
-  * debian/patches/02_python_makefile.dpatch: Refreshed
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri, 29 Jan 2010 16:01:48 +1100
-
-speech-dispatcher (0.6.7+git20090914~unofficial-0ubuntu4) karmic; urgency=low
-
-  * debian/patches/04_quieten_logfiles.dpatch: Quieten all log files, except for
-    errors that are important enough to read.
-  * debian/patches/05_disable_modules.dpatch: Only enable the espeak module by
-    default, as that is the only module available on the CD.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Tue, 13 Oct 2009 16:15:56 +1100
-
-speech-dispatcher (0.6.7+git20090914~unofficial-0ubuntu3) karmic; urgency=low
-
-  * debian/speech-dispatcher.init: fix typo of log_warning_msg
-    (LP: #440846)
-
- -- Tormod Volden <debian.tormod@gmail.com>  Tue, 06 Oct 2009 20:40:56 +0200
-
-speech-dispatcher (0.6.7+git20090914~unofficial-0ubuntu2) karmic; urgency=low
-
-  * debian/speech-dispatcher.init: Change the message given for
-    speech-dispatcher not loading at system start. Since speech-dispatcher
-    is set up to work in a user's session now, those who want to use
-    speech-dispatcher in system mode know what to do to change things.
-    (LP: #440846)
-
- -- Luke Yelavich <themuso@ubuntu.com>  Tue, 06 Oct 2009 13:23:56 +1100
-
-speech-dispatcher (0.6.7+git20090914~unofficial-0ubuntu1) karmic; urgency=low
-
-  * Snapshot of unofficial upstream repository, dropping the vast majority
-    of patches, since they have been merged into the git repo used for this
-    snapshot. This does not introduce any new features, and has only been done
-    to improve package management.
-  * debian/speech-dispatcher.install: Refer to speechd-server-spawn manpage
-    that is now part of the speech-dispatcher package.
-  * debian/rules:
-    - Remove all references to speechd-server-spawn.
-    - Add --with-system-speechd-start-cmd to configure args, to use the system
-      init script for system level speech-dispatcher server spawning.
-  * debian/speech-dispatcher.init: Allow spawn to be passed as a second
-    argument to the script, to allow speech-dispathcher to be started by the
-    autospawn script.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Tue, 15 Sep 2009 09:07:42 +1000
-
-speech-dispatcher (0.6.7+git20090514-0ubuntu14) karmic; urgency=low
-
-  * debian/patches/20_pulse_output_connect_to_server.dpatch:
-    - Only log an error message if connection to the pulse server was not
-      possible.
-    - Add much needed braces around if blocks.
-    - Nullify freed variables.
-    Thanks to Eitan Isaacson <eitan@ascender.com> for most of the work.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri, 11 Sep 2009 11:30:54 +1000
-
-speech-dispatcher (0.6.7+git20090514-0ubuntu13) karmic; urgency=low
-
-  * debian/speech-dispatcher.install: Add /etc/profile.d to the
-    speech-dispatcher package, so that user sessions work properly.
-  * debian/patches/22_remove_quotes.dpatch: Remove unneeded quotes for
-    paths in speechd.conf, patch thanks to Eitan Isaacson <eitan@ascender.com>.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Wed, 09 Sep 2009 09:36:25 +1000
-
-speech-dispatcher (0.6.7+git20090514-0ubuntu12) karmic; urgency=low
-
-  * debian/speechd-server-spawn: Remove unneeded debugging code.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Mon, 07 Sep 2009 13:13:39 +1000
-
-speech-dispatcher (0.6.7+git20090514-0ubuntu11) karmic; urgency=low
-
-  * debian/patches/20_pulse_output_connect_to_server.dpatch: When attempting
-    to determine whether pulseaudio is a viable audio output, attempt to connect
-    to the server, and return the appropriate result. Patch sent upstream.
-  * debian/patches/11_config_Set_the_audio_output_to_be_pulse_alsa_by_defa.dpatch:
-    re-enable.
-  * 21_fix_audio_fallback_logic.dpatch: Once an audio output options has been found
-    to be available, break out of the loop and run with the choice made. Patch sent
-    upstream.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Tue, 01 Sep 2009 11:22:37 +1000
-
-speech-dispatcher (0.6.7+git20090514-0ubuntu10) karmic; urgency=low
-
-  * debian/rules: Add DEB_UPDATE_RCD_PARAMS variable to set dh_installinit
-    parameters, dropped during the move to cdbs.
-  * debian/patches/20_fix_homedir_bug.dpatch: Dropped, not really the best
-    approach.
-  * debian/patches/11_config_Set_the_audio_output_to_be_pulse_alsa_by_defa.dpatch:
-    Temporarily drop until the pulse output code is fixed to actually connect to
-    the pulseaudio server when pulse_open is called. The current situation sees
-    pulseaudi as a successful choice for audio, even though no connectino attempt
-    to the server has yet been made.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Mon, 31 Aug 2009 16:07:16 +1000
-
-speech-dispatcher (0.6.7+git20090514-0ubuntu9) karmic; urgency=low
-
-  * Actually add debian/patches/19_enable_autospawn_config.dpatch to the 00list
-    file.
-  * debian/patches/20_fix_homedir_bug.dpatch: Only check and use contents in
-    $HOME/.speech-dispatcher if the home dir of the current user starts with
-    /home. Patch pushed upstream. (LP: #351421)
-  * debian/rules: Re-add the PIDPATH variable passed to the configure script,
-    accidentally dropped with the move to cdbs.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri, 28 Aug 2009 17:24:33 +1000
-
-speech-dispatcher (0.6.7+git20090514-0ubuntu8) karmic; urgency=low
-
-  * debian/control: Drop build depend on libaudio-dev, so we don't pull NAS
-    packages onto the CDs.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri, 28 Aug 2009 10:20:25 +1000
-
-speech-dispatcher (0.6.7+git20090514-0ubuntu7) karmic; urgency=low
-
-  * debian/rules, debian/speech-dispatcher.init: Only stop on init level 1,
-    and not levels 0 or 6.
-    debian/speech-dispatcher.postrm: Do not remove system user on package
-    removal.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Thu, 27 Aug 2009 08:51:25 +1000
-
-speech-dispatcher (0.6.7+git20090514-0ubuntu6) karmic; urgency=low
-
-  * Remove autoconf/automake files from .diff.gz that managed to creep
-    in due to different versions of autotools on my system.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Wed, 26 Aug 2009 12:19:38 +1000
-
-speech-dispatcher (0.6.7+git20090514-0ubuntu5) karmic; urgency=low
-
-  * debian/speechd-server-spawn: Only spawn the server if autospawning
-    is enabled.
-  * debian/patches/19_enable_autospawn_config.dpatch: Enable auto-spawning
-    by default in speechd.conf.
-  * debian/python-speechd.install: Dropp speech-dispatcher desktop file
-    As it will not be needed, and its in the wrong package anyway.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Wed, 26 Aug 2009 10:43:08 +1000
-
-speech-dispatcher (0.6.7+git20090514-0ubuntu4) karmic; urgency=low
-
-  * debian/control: Fix some lintian warnings.
-  * Added manpages for spd-conf and speechd-server-spawn.
-  * debian/patches/18_cleanup_c_api.dpatch: Fix typos in the API header
-    file, patch sent upstream.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Tue, 25 Aug 2009 15:30:52 +1000
-
-speech-dispatcher (0.6.7+git20090514-0ubuntu3) karmic; urgency=low
-
-  * Massive cleanup of packaging, moved from part debhelper and part copying
-    files to cdbs, allowing for much cleaner and easier maintenance of the
-    package in the future.
-  * Bumped compat to 7, and standards to 3.8.3, no changes needed.
-  * Removed some packages from build-depends that are not needed for the
-    package to be built.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Mon, 24 Aug 2009 15:00:54 +1000
-
-speech-dispatcher (0.6.7+git20090514-0ubuntu2) karmic; urgency=low
-
-  * debian/rules: /usr/share/speech-dispatcher/conf/desktop/speechd.desktop
-    should only be in the python-speechd package.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Thu, 20 Aug 2009 11:32:58 +1000
-
-speech-dispatcher (0.6.7+git20090514-0ubuntu1) karmic; urgency=low
-
-  * New upstream git snapshot
-  * Refresh all patches that have been written and sent upstream, but are not
-    yet applied.
-  * debian/patches/17_autospawn.dpatch: Add support for auto-spawning the
-    speech-dispatcher server when a client attempts to connect to the server
-    either with python bindings, or via the C aPI. Needs clenaing up before
-    sending upstream.
-  * debian/rules: Install speechd-server-spawn into the speech-dispatcher
-    package used for auto spawning.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Mon, 17 Aug 2009 14:04:16 +1000
 
 speech-dispatcher (0.6.7-9) unstable; urgency=low
 
@@ -865,91 +466,6 @@ speech-dispatcher (0.6.7-5) unstable; urgency=low
 
  -- Milan Zamazal <pdm@debian.org>  Mon, 02 Nov 2009 14:12:08 +0100
 
-speech-dispatcher (0.6.7-4ubuntu6) UNRELEASED; urgency=low
-
-  * debian/patches/18_python_bindings_autospawn.dpatch: Add support for spawning
-    the speech-dispatcher server if it is not running. As the patch file name
-    indicates, this is for the python bindings. The code to spawn the server
-    from the C API will be added at a later date.
-  * debian/speechd-server-spawn: Add a shell script to wrap around the server.
-    The script will return the pid of the running speechd-server, whether the
-    script started it or not. The script will also run speech-dispatcher in
-    system mode if the script is run as root.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri, 07 Aug 2009 16:13:57 +0100
-
-speech-dispatcher (0.6.7-4ubuntu5) karmic; urgency=low
-
-  * 15_user_session_integration.dpatch: More tightly integrate
-    speech-dispatcher into the user session, setting a unique port
-    to be used by each user instance of speech-dispatcher Patch sent upstream.
-  * 16_no_hard_code_speechd_clients.dpatch: Adjust the config file so that
-    client config file inclusion does not need to be hard coded. Patch sent
-    upstream.
-  * 17_respect_destdir.dpatch: Respect DESTDIR everywhere, taken from upstream
-    git master.
-  * debian/rules:
-    - Enable session integration, as per the above patch.
-    - Use Call make install with the DESTDIR variable set.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Thu, 30 Jul 2009 15:58:07 +1000
-
-speech-dispatcher (0.6.7-4ubuntu4) karmic; urgency=low
-
-  * 14_set_default_audio_output.dpatch: Remove oss from the audio output list,
-    as for some reason, no audio output device gets open when oss is present.
-    Needs further investigation.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Wed, 08 Jul 2009 11:43:44 +1000
-
-speech-dispatcher (0.6.7-4ubuntu3) karmic; urgency=low
-
-  * 08_server-Send-log-level-configuration-setting-to_modules.dpatch: Send
-    the loglevel setting to the speech modules, to ensure a consistant log
-    level in all logfiles. Patch sent upstream.
-  * 09_modules-Receive-and-set-log-level-from-speechd-server.dpatch: Receive
-    the log level from the speech server, ans set it globally. Patch sent
-    upstream.
-  * 10_audio-alsa-audio-oss-Take-the-log-level-into-account.dpatch: Take
-    the log level into account when logging audio activity. Patch sent
-    upstream.
-  * 11_audio-alsa-audio-oss-Assign-all-log-messages-a-log-level.dpatch: Assign
-    all log messages a log level in the audio output code. Patch sent upstream.
-  * 12_audio-modules-Set-libspdaudio-s-internal-log_level-variable.dpatch: Set
-    the log level for use in the audio output library code. Patch sent upstrea.
-  * 13_audio_fallback.dpatch: Enable graceful audio fallback for audio output.
-    When attempting to set up audio output, a module will itterate through a
-    comma separated list of audio output methods until it can either
-    successfully set up audio output, or all specified audio outputs fail to be
-    set up. Patch sent upstream.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Wed, 08 Jul 2009 11:01:22 +1000
-
-speech-dispatcher (0.6.7-4ubuntu2) karmic; urgency=low
-
-  * debian/patches/07_pulse_adjustments.dpatch: Adjust some pulseaudio
-    functionality for lower latency.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri, 15 May 2009 12:57:55 +1000
-
-speech-dispatcher (0.6.7-4ubuntu1) karmic; urgency=low
-
-  * Merge from debian unstable, remaining changes:
-    - Add lpia to the list of architectures for libasound2-dev
-    - Python-speechd should depend on speech-dispatcher
-    - Moved the flite output module to a separate package, and added
-      it to suggests
-    - debian/init.d: Added work-around to ensure /var/run/speech-dispatcher is created
-      at boot due to /var/run being mounted tmpfs
-    - debian/speech-dispatcher.postrm: Add check for
-      /var/run/speech-dispatcher and do not try to remove if not present
-    - Speech-dispatcher is not started on system boot by default
-    - Use alsa as default audio output
-  * debian/patches/06_fix_libspeechd_memleak.dpatch: Move the memory leak
-    fix to a patch file, rather than it be applied directly in the .diff.gz
-
- -- Luke Yelavich <themuso@ubuntu.com>  Wed, 06 May 2009 08:50:54 +1000
-
 speech-dispatcher (0.6.7-4) unstable; urgency=low
 
   * Upload to unstable.
@@ -977,46 +493,6 @@ speech-dispatcher (0.6.7-1) experimental; urgency=low
 
  -- Milan Zamazal <pdm@debian.org>  Mon, 04 Aug 2008 21:27:14 +0200
 
-speech-dispatcher (0.6.7-0ubuntu4) jaunty; urgency=low
-
-  * debian/control: Move python-all-dev build dependency so its pulled in for
-    all arches (Fix FTBF)
-
- -- Luke Yelavich <themuso@ubuntu.com>  Mon, 02 Mar 2009 15:39:08 +1100
-
-speech-dispatcher (0.6.7-0ubuntu3) jaunty; urgency=low
-
-  * rebuild for python 2.6
-
- -- Luke Yelavich <themuso@ubuntu.com>  Mon, 02 Mar 2009 14:57:49 +1100
-
-speech-dispatcher (0.6.7-0ubuntu2) intrepid; urgency=low
-
-  * debian/patches/04_from_cvs_fix_hash_expansion.dpatch: Prevent bash
-    expansion of $DATA variables.
-  * debian/patches/05_from_cvs_threading_fixes.dpatch: Fix some mutex
-    issues relating to alsa audio output and the espeak module.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri, 17 Oct 2008 10:47:20 +1100
-
-speech-dispatcher (0.6.7-0ubuntu1) intrepid; urgency=low
-
-  * New upstream release.
-  * Merge from debian unstable, remaining changes:
-    - Add lpia to the list of architectures for libasound2-dev.
-    - Python-speechd should depend on speech-dispatcher.
-    - Moved the flite output module to a separate package, and added
-      it to suggests.
-    - debian/init.d: Added work-around to ensure /var/run/speech-dispatcher is created
-      at boot due to /var/run being mounted tmpfs.
-    - debian/speech-dispatcher.postrm: Add check for
-      /var/run/speech-dispatcher and do not try to remove if not present.
-    - Set maintainer to Ubuntu Accessibility Developers.
-    - Speech-dispatcher is not started on system boot by default.
-  * Use alsa as default audio output.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Sat, 16 Aug 2008 21:29:26 +1000
-
 speech-dispatcher (0.6.7~rc1-1) unstable; urgency=low
 
   * New upstream version (pre-release).
@@ -1025,24 +501,6 @@ speech-dispatcher (0.6.7~rc1-1) unstable; urgency=low
   * Standards 3.8.0.
 
  -- Milan Zamazal <pdm@brailcom.org>  Sun, 13 Jul 2008 16:58:37 +0200
-
-speech-dispatcher (0.6.6+cvs20080515-0ubuntu1) intrepid; urgency=low
-
-  * New upstream CVS snapshot.
-  * Merge from debian unstable, remaining changes:
-    - Add lpia to the list of architectures for libasound2-dev.
-    - Python-speechd should depend on speech-dispatcher.
-    - Moved the flite output module to a separate package, and added
-      it to suggests.
-    - debian/init.d: Added work-around to ensure /var/run/speech-dispatcher is created
-      at boot due to /var/run being mounted tmpfs.
-    - debian/speech-dispatcher.postrm: Add check for
-      /var/run/speech-dispatcher and do not try to remove if not present.
-    - Set maintainer to Ubuntu Accessibility Developers.
-    - Speech-dispatcher is not started on system boot by default.
-    - Use pulseaudio output by default for all modules that support it.
-
- -- Luke Yelavich <luke.yelavich@canonical.com>  Fri, 06 Jun 2008 12:55:04 +1000
 
 speech-dispatcher (0.6.6-2) unstable; urgency=low
 
@@ -1065,188 +523,12 @@ speech-dispatcher (0.6.6-1) unstable; urgency=low
 
  -- Milan Zamazal <pdm@debian.org>  Wed, 13 Feb 2008 22:59:11 +0100
 
-speech-dispatcher (0.6.6-0ubuntu8) hardy; urgency=low
-
-  * Disable speech-dispatcher from starting at system boot. This ensures that
-    users using another speech system such as gnome-speech, or users using
-    pulseaudio, will still be able to use speech/pulseaudio after a system
-    restart. (LP: #213755)
-  * Use PulseAudio output by default for all modules that support it.
-
- -- Luke Yelavich <luke.yelavich@canonical.com>  Thu, 17 Apr 2008 20:27:02 +1000
-
-speech-dispatcher (0.6.6-0ubuntu7) hardy; urgency=low
-
-  * debian/patches/07_libspeechd-h.dpatch: Fix from CVS: Ensure libspeechd.h
-    is not included more than once.
-
- -- Luke Yelavich <luke.yelavich@canonical.com>  Wed, 09 Apr 2008 22:52:02 +1000
-
-speech-dispatcher (0.6.6-0ubuntu6) hardy; urgency=low
-
-  * debian/patches/05_mutex-fix.dpatch taken from CVS:
-    - src/c/api/libspeechd.c (spd_send_data): Insure that function does not
-      hold a mutex when it returns.
-
- -- Luke Yelavich <luke.yelavich@canonical.com>  Wed, 02 Apr 2008 15:20:08 +1100
-
-speech-dispatcher (0.6.6-0ubuntu5) hardy; urgency=low
-
-  * debian/patches/05_honour-environment.dpatch: Drop for now, proper integration
-    work will be done in Intrepid.
-  * debian/speech-dispatcher.profile.d: Drop, same as above.
-  * Run as system service by default, this will change for intrepid.
-  * debian/rules: Adjust for recent pycentral updates.
-
- -- Luke Yelavich <luke.yelavich@canonical.com>  Wed, 05 Mar 2008 13:48:11 +1100
-
-speech-dispatcher (0.6.6-0ubuntu4) hardy; urgency=low
-
-  * Only set the SPEECHD_PORT environment variable if speech-dispatcher is not already
-    running system wide.
-
- -- Luke Yelavich <luke.yelavich@canonical.com>  Tue, 26 Feb 2008 08:50:39 +1100
-
-speech-dispatcher (0.6.6-0ubuntu3) hardy; urgency=low
-
-  * debian/patches/05_honour-environment.dpatch: Honour the SPEECHD_PORT environment
-    variable.
-  * debian/patches/06_flite-improvements.dpatch: Flite updates from CVS as below:
-    - src/modules/flite.c (_flite_speak): Call flite_strip_silence to get rid of
-      leading and trailing silence in utterance (Idea and algorithm copied from
-      eflite).
-    - (flite_set_rate): Increase maximum speech rate.
-
- -- Luke Yelavich <luke.yelavich@canonical.com>  Mon, 25 Feb 2008 14:17:44 +1100
-
-speech-dispatcher (0.6.6-0ubuntu2) hardy; urgency=low
-
-  * debian/patches/04_doc-updates.dpatch: Documentation updates from CVS.
-  * debian/init: Quote recently added strings appropriately.
-  * Add shell script to /etc/profile.d to set the SPEECHD_PORT environment
-    variable to a unique port number for users to run speech-dispatcher
-    sessions.
-
- -- Luke Yelavich <luke.yelavich@canonical.com>  Wed, 20 Feb 2008 15:32:53 +1100
-
-speech-dispatcher (0.6.6-0ubuntu1) hardy; urgency=low
-
-  * New upstream release,
-
- -- Luke Yelavich <luke.yelavich@canonical.com>  Wed, 13 Feb 2008 23:27:48 +1100
-
-speech-dispatcher (0.6.5+cvs20080211-0ubuntu1) hardy; urgency=low
-
-  * New upstream snapshot. 0.6.6 is likely to land soon, but not soon enough
-    for Ubuntu.
-  * Fix up multiple /etc/default/speech-dispatcher files.
-
- -- Luke Yelavich <luke.yelavich@canonical.com>  Wed, 13 Feb 2008 20:03:40 +1100
-
-speech-dispatcher (0.6.5+cvs20080204-0ubuntu3) hardy; urgency=low
-
-  * debian/control: Fix typo causing python-speech to fail installation.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Sat, 09 Feb 2008 18:56:00 +1100
-
-speech-dispatcher (0.6.5+cvs20080204-0ubuntu2) hardy; urgency=low
-
-  * Move all indep dependencies into Build-Depends. This will fix FTBFS
-    on all arches other than i386 for good.
-  * Only use python 2.5 for python-speechd.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri, 08 Feb 2008 09:14:48 +1100
-
-speech-dispatcher (0.6.5+cvs20080204-0ubuntu1) hardy; urgency=low
-
-  * New upstream snapshot, encorporating some rather important stability
-    fixes, both in the core, and the audio subsystem
-  * debian/patches/02_python-makefile.dpatch: Reworked
-  * debian/patches/04_libs-cleanup.dpatch: Dropped, applied upstream
-  * debian/patches/05_pulseaudio-fixes.dpatch: Dropped, applied upstream
-  * Removed python-all-dev from Build-Depends.
-  * speech-dispatcher is started by default, but can easily be disabled
-    if a user so wishes.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Thu, 07 Feb 2008 16:40:28 +1100
-
-speech-dispatcher (0.6.5-1ubuntu3) hardy; urgency=low
-
-  * debian/patches/05_pulseaudio-fixes.dpatch:
-    - Fixes taken from CVS:
-      + pulse_play now returns once the given track has been drained.
-      + automatically close the PulseAudio connection after a moment
-        of inactivity (currently set to 100ms in PULSE_TIMEOUT_IN_USEC).
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri, 21 Dec 2007 21:53:01 +1100
-
-speech-dispatcher (0.6.5-1ubuntu2) hardy; urgency=low
-
-  * debian/patches/04_libs-cleanup.dpatch:
-    - Remove libraries that were being linked against, but had no
-      symbols being used.
-    - Link libsdaudio.so.2.00.2 against libpthread.
-  * debian/rules: Run dh_makeshlibs for the speech-dispatcher package as
-    well. Needed to ensure speech-dispatcher-flite can get the correct
-    shlib dependencies.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri, 14 Dec 2007 13:58:57 +1100
-
-speech-dispatcher (0.6.5-1ubuntu1) hardy; urgency=low
-
-  * Merge from debian unstable, remaining changes:
-    - Add python-all-dev to build-depends. (Fix FTBFS)
-    - Add lpia to the list of architectures for libasound2-dev.
-    - Python-speechd should depend on speech-dispatcher.
-    - Moved the flite output module to a separate package, and added
-      it to suggests.
-    - debian/init.d: Added work-around to ensure /var/run/speech-dispatcher is created
-      at boot due to /var/run being mounted tmpfs.
-    - debian/speech-dispatcher.postrm: Add check for
-      /var/run/speech-dispatcher and do not try to remove if not
-      present.
-    - Set myself as maintainer. 
-  * Ubuntu changes dropped:
-    - Fix some variable data size inconsistancies, causing crashes on
-      64-bit systems. Applied upstream.
-    - Endian fixes to speech drivers, and the audio output library. Applied
-      upstream.
-    - Changed default speech synthesizer to the new espeak driver. Applied
-      upstream.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Sat, 01 Dec 2007 22:34:55 +1100
-
 speech-dispatcher (0.6.5-1) unstable; urgency=low
 
   * New upstream version.
   * Use dpatch for upstream patches.
 
  -- Milan Zamazal <pdm@debian.org>  Fri, 30 Nov 2007 19:18:46 +0100
-
-speech-dispatcher (0.6.4-2ubuntu2) hardy; urgency=low
-
-  * Add python-all-dev to build-depends. (Fix FTBFS)
-  * Add lpia to the list of architectures for libasound2-dev.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Tue, 27 Nov 2007 17:47:57 +1100
-
-speech-dispatcher (0.6.4-2ubuntu1) hardy; urgency=low
-
-  * Merge from debian unstable, remaining changes:
-    - Fix some variable data size inconsistancies, causing crashes on
-      64-bit systems.
-    - Python-speechd should depend on speech-dispatcher.
-    - Endian fixes to speech drivers, and the audio output library.
-    - Changed default speech synthesizer to the new espeak driver.
-    - Moved the flite output module to a separate package, and added
-      it to suggests.
-    - debian/init.d: Added work-around to ensure /var/run/speech-dispatcher is created
-      at boot due to /var/run being mounted tmpfs.
-    - debian/speech-dispatcher.postrm: Add check for
-      /var/run/speech-dispatcher and do not try to remove if not
-      present.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Tue, 27 Nov 2007 08:07:51 +1100
 
 speech-dispatcher (0.6.4-2) unstable; urgency=low
 
@@ -1261,60 +543,6 @@ speech-dispatcher (0.6.4-1) unstable; urgency=low
   * debian/control: Use ${*:Version} instead of ${Source-Version}.
 
  -- Milan Zamazal <pdm@debian.org>  Wed, 29 Aug 2007 14:38:54 +0200
-
-speech-dispatcher (0.6.4~beta1+cvs20070807-0ubuntu5) gutsy; urgency=low
-
-  * debian/patches/02_size_t_fix.dpatch:
-    - Fix some variable data size inconsistancies, causing crashes on
-      64-bit systems. Thanks to Mike Gorse <mgorse@alum.wpi.edu>
-
- -- Luke Yelavich <themuso@ubuntu.com>  Mon, 24 Sep 2007 10:54:28 +1000
-
-speech-dispatcher (0.6.4~beta1+cvs20070807-0ubuntu4) gutsy; urgency=low
-
-  * S in source should be lower case. Go me!
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri, 14 Sep 2007 15:20:07 +1000
-
-speech-dispatcher (0.6.4~beta1+cvs20070807-0ubuntu3) gutsy; urgency=low
-
-  * Python-speechd should depend on speech-dispatcher.
-  * Fix lintian warnings.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri, 14 Sep 2007 14:59:37 +1000
-
-speech-dispatcher (0.6.4~beta1+cvs20070807-0ubuntu2) gutsy; urgency=low
-
-  * debian/control: Add dpatch to build-depends.
-  * debian/patches/01_audio_endian_fix.dpatch:
-    - Endian fixes to speech drivers, and the audio output library.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Wed, 12 Sep 2007 14:34:07 +1000
-
-speech-dispatcher (0.6.4~beta1+cvs20070807-0ubuntu1) gutsy; urgency=low
-
-  * New upstream CVS snapshot.
-  * Added libsndfile1-dev, pkg-config, and libespeak-dev as 
-    dependencies.
-  * Changed default speech synthesizer to the new espeak driver.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Thu, 16 Aug 2007 14:14:26 +1000
-
-speech-dispatcher (0.6.2-3ubuntu1) gutsy; urgency=low
-
-  * Merge from Debian unstable. Remaining Ubuntu changes:
-    - Change default speech-dispatcher configuration to use espeak.
-    - Set Luke Yelavich as Ubuntu package maintainer.
-    - debian/control: Add python-dev as a dependency.
-    - Moved the flite output module to a separate package, and added
-      it to suggests.
-    - debian/init.d: Added work-around to ensure /var/run/speech-dispatcher is created
-      at boot due to /var/run being mounted tmpfs.
-    - debian/speech-dispatcher.postrm: Add check for
-      /var/run/speech-dispatcher and do not try to remove if not
-      present.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri, 04 May 2007 17:14:18 +1000
 
 speech-dispatcher (0.6.2-3) unstable; urgency=low
 
@@ -1346,41 +574,6 @@ speech-dispatcher (0.6.1-3) unstable; urgency=low
 
  -- Milan Zamazal <pdm@debian.org>  Mon,  6 Nov 2006 09:58:02 +0100
 
-speech-dispatcher (0.6.2-0ubuntu1) gutsy; urgency=low
-
-  * New upstream release
-  * Ensure espeak is set as default in config/speechd.conf.in.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Mon, 30 Apr 2007 10:42:36 +1000
-
-speech-dispatcher (0.6.1-2ubuntu3) feisty; urgency=low
-
-  * Change default speech-dispatcher configuration to use espeak.
-  * Move espeak from recommends to depends for the speech-dispatcher 
-    package.
-  * Set myself as Ubuntu package maintainer.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Sat, 24 Mar 2007 10:58:54 +1100
-
-speech-dispatcher (0.6.1-2ubuntu2) feisty; urgency=low
-
-  * debian/control:
-    - Add python-dev as a dependency.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri,  2 Feb 2007 23:05:59 +1100
-
-speech-dispatcher (0.6.1-2ubuntu1) edgy; urgency=low
-
-  * Merge from debian unstable.
-  * Moved the flite output module to a separate package, and added it to
-    suggests.
-  * Configure speech-dispatcher to use festival by default.
-  * Removed the speech-dispatcher-festival metapackage, and added 
-    festival-freebsoft-utils to the depends field of speech-dispatcher.
-  * Add espeak to suggests.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Thu,  3 Aug 2006 13:06:55 +1000
-
 speech-dispatcher (0.6.1-2) unstable; urgency=low
 
   * python-speechd updated to the new Python policy; closes: #380959.
@@ -1407,473 +600,6 @@ speech-dispatcher (0.6-5) unstable; urgency=low
   * Standards 3.7.2 (no real change).
 
  -- Milan Zamazal <pdm@debian.org>  Mon, 10 Jul 2006 14:39:31 +0200
-
-speech-dispatcher (0.6-4ubuntu1) edgy; urgency=low
-
-  * Merge newer debian version:
-    + debian/init.d:
-      Added work-around to ensure /var/run/speech-dispatcher is created at
-      boot due to /var/run being mounted tmpfs.
-    + debian/speech-dispatcher.postrm:
-      Add check for /var/run/speech-dispatcher and do not try to remove if
-      not present.
-
- -- Stefan Potyra <sistpoty@ubuntu.com>  Fri,  7 Jul 2006 15:36:04 +0200
-
-speech-dispatcher (0.6-4) unstable; urgency=low
-
-  * Libraries required for NAS support added to build dependencies.
-
- -- Milan Zamazal <pdm@debian.org>  Mon, 27 Mar 2006 13:04:13 +0200
-
-speech-dispatcher (0.6-3) unstable; urgency=low
-
-  * libasound2-dev added to build-dependencies.
-
- -- Milan Zamazal <pdm@debian.org>  Sun, 26 Mar 2006 22:38:42 +0200
-
-speech-dispatcher (0.6-2) unstable; urgency=low
-
-  * Added missing declaration in the upstream sources to make the package
-    compile on 64-bit architectures, thanks to
-    Samuel Thibault <samuel.thibault@ens-lyon.org>; closes: #356134.
-  * Standards 3.6.2 (no real change).
-
- -- Milan Zamazal <pdm@debian.org>  Fri, 10 Mar 2006 12:14:17 +0100
-
-speech-dispatcher (0.6-1) unstable; urgency=low
-
-  * New upstream version.
-
- -- Milan Zamazal <pdm@debian.org>  Fri, 17 Feb 2006 10:40:25 +0100
-
-speech-dispatcher (0.5-4) unstable; urgency=low
-
-  * Typo in Festival use instructions fixed; closes: #326992.
-  * Remove speech-dispatcher user on `remove' instead of `purge'.  Remove
-    its home directory with `rm -r' instead of `deluser --remove-home'.
-    Change owner of the home directory in postinst.  Change owner of the
-    log directory recursively.  Closes: #348241.
-
- -- Milan Zamazal <pdm@debian.org>  Mon, 16 Jan 2006 12:07:23 +0100
-
-speech-dispatcher (0.5-3) unstable; urgency=low
-
-  * Patch by Andreas Jochens to compile on amd64 applied; closes: #298420.
-
- -- Milan Zamazal <pdm@debian.org>  Mon,  7 Mar 2005 15:28:31 +0100
-
-speech-dispatcher (0.5-2) unstable; urgency=low
-
-  * speech-dispatcher: Conflict with older libspeechd1.
-
- -- Milan Zamazal <pdm@debian.org>  Tue,  9 Nov 2004 08:38:55 +0100
-
-speech-dispatcher (0.5-1) unstable; urgency=low
-
-  * New upstream version.
-
- -- Milan Zamazal <pdm@debian.org>  Tue, 19 Oct 2004 18:58:53 +0200
-
-speech-dispatcher (0.4.1-3) unstable; urgency=low
-
-  * speech-dispatcher: Depend on adduser; closes: #272215.
-
- -- Milan Zamazal <pdm@debian.org>  Sat, 18 Sep 2004 20:29:46 +0200
-
-speech-dispatcher (0.4.1-2) unstable; urgency=low
-
-  * libsdaudio.so moved to speech-dispatcher.
-  * Don't build-depend on automake1.7.
-
- -- Milan Zamazal <pdm@debian.org>  Wed, 30 Jun 2004 10:56:29 +0200
-
-speech-dispatcher (0.4.1-1) unstable; urgency=low
-
-  * New upstream version.
-
- -- Milan Zamazal <pdm@debian.org>  Sun, 30 May 2004 12:55:54 +0200
-
-speech-dispatcher (0.4-1) unstable; urgency=low
-
-  * New upstream version.
-  * Standards 3.6.1 (no change).
-
- -- Milan Zamazal <pdm@debian.org>  Fri, 28 May 2004 16:07:05 +0200
-
-speech-dispatcher (0.3-6) unstable; urgency=low
-
-  * Upstream ltmain.sh removed and all auto* files rebuilt;
-    closes: #248536.
-
- -- Milan Zamazal <pdm@debian.org>  Sun, 23 May 2004 13:54:32 +0200
-
-speech-dispatcher (0.3-5) unstable; urgency=low
-
-  * Default module log file directory changed to
-    /var/log/speech-dispatcher/.
-  * `texinfo' added to build dependencies; closes: #247788.
-
- -- Milan Zamazal <pdm@debian.org>  Fri,  7 May 2004 07:26:35 +0200
-
-speech-dispatcher (0.3-4) unstable; urgency=low
-
-  * speech-dispatcher-festival: This is an architecture independent
-    package.
-  * debian/rules: Don't build binary-indep packages in binary-dep;
-    closes: #244389.
-  * debian/rules: Install the libraries correctly even with the newer
-    libtool versions that generate library files without the .so extension
-    (for some mysterious unexplained reason); closes: #244386.
-  * speech-dispatcher: The lintian override file updated.
-
- -- Milan Zamazal <pdm@debian.org>  Sun, 18 Apr 2004 17:39:53 +0200
-
-speech-dispatcher (0.3-3) unstable; urgency=low
-
-  * libspeechd1: Conflict with libspeechd0 (>= 0.3).
-  * Use --oknodo in start-stop-daemon on reloading; closes: #242362.
-  * cl-speech-dispatcher: Depend on cl-regex; closes: #243368.
-
- -- Milan Zamazal <pdm@debian.org>  Tue, 13 Apr 2004 09:35:59 +0200
-
-speech-dispatcher (0.3-2) unstable; urgency=low
-
-  * libspeechd0 renamed to libspeechd1.
-
- -- Milan Zamazal <pdm@debian.org>  Mon,  5 Apr 2004 12:12:42 +0200
-
-speech-dispatcher (0.3-1) unstable; urgency=low
-
-  * New upstream version.
-
- -- Milan Zamazal <pdm@debian.org>  Mon,  5 Apr 2004 08:58:05 +0200
-
-speech-dispatcher (0.2-8) unstable; urgency=low
-
-  * Priority changed back to extra.
-  * Don't install upstream changelog to all binary packages.
-
- -- Milan Zamazal <pdm@debian.org>  Thu, 19 Feb 2004 10:16:18 +0100
-
-speech-dispatcher (0.2-7) unstable; urgency=low
-
-  * Typo in speech-dispatcher dependencies fixed; closes: #233639.
-  * New package speech-dispatcher-festival.
-  * Package priority changed to optional.
-  * Require at least current libspeechd0 version in shlibs.
-
- -- Milan Zamazal <pdm@debian.org>  Thu, 19 Feb 2004 09:57:57 +0100
-
-speech-dispatcher (0.2-6) unstable; urgency=low
-
-  * Don't install festival-interface.
-  * Suggest festival-freebsoft-utils.
-
- -- Milan Zamazal <pdm@debian.org>  Mon,  2 Feb 2004 16:04:20 +0100
-
-speech-dispatcher (0.2-5) unstable; urgency=low
-
-  * Some upstream fixes incorporated.
-  * Typo in `Recommends' field name fixed.
-
- -- Milan Zamazal <pdm@debian.org>  Tue, 27 Jan 2004 12:03:57 +0100
-
-speech-dispatcher (0.2-4) unstable; urgency=low
-
-  * Common Lisp support added from the CVS version.
-  * New binary package cl-speech-dispatcher.
-  * Use debian/compat and Debhelper 4.
-
- -- Milan Zamazal <pdm@debian.org>  Tue, 20 Jan 2004 19:31:06 +0100
-
-speech-dispatcher (0.2-3) unstable; urgency=low
-
-  * Commented out log file locations in config files moved to
-    /var/log/speech-dispatcher/ and logrotate entries added for them.
-
- -- Milan Zamazal <pdm@debian.org>  Tue,  6 Jan 2004 18:10:58 +0100
-
-speech-dispatcher (0.2-2) unstable; urgency=low
-
-  * AUTHORS file added.
-  * Info entry for ssip.info added.
-
- -- Milan Zamazal <pdm@debian.org>  Tue, 30 Dec 2003 09:46:09 +0100
-
-speech-dispatcher (0.2-1) unstable; urgency=low
-
-  * New upstream release.
-  * debian/rules: Call `make distclean' instead of `make maintainer-clean'.
-  * debian/rules: Update config.{sub,guess}.
-  * Build-depend on autotools-dev; don't build-depend on librecode-dev.
-
- -- Milan Zamazal <pdm@debian.org>  Mon, 29 Dec 2003 14:33:16 +0100
-
-speech-dispatcher (0.1-3) unstable; urgency=low
-
-  * Don't recommend `flite'; closes: #221889.
-  * Suggest `festival', don't recommend it.
-  * Package sections changed to be in correspondence with the override
-    file.
-  * Information about server_access_list added to README.Debian.
-
- -- Milan Zamazal <pdm@debian.org>  Wed, 26 Nov 2003 12:42:11 +0100
-
-speech-dispatcher (0.1-2) unstable; urgency=low
-
-  * Recommend `flite | festival'.
-  * Recommend `sound-icons'.
-  * Don't run automake etc. explicitly.
-  * Build-depend on libtool; closes: #221006.
-  * Log file permissions explained in README.Debian; closes: #221102.
-
- -- Milan Zamazal <pdm@debian.org>  Tue, 18 Nov 2003 14:54:40 +0100
-
-speech-dispatcher (0.1-1) unstable; urgency=low
-
-  * Initial packaging.
-
- -- Milan Zamazal <pdm@debian.org>  Fri,  7 Nov 2003 10:28:54 +0100
-
-speech-dispatcher (0.6.5-1ubuntu2) hardy; urgency=low
-
-  * debian/patches/04_libs-cleanup.dpatch:
-    - Remove libraries that were being linked against, but had no
-      symbols being used.
-    - Link libsdaudio.so.2.00.2 against libpthread.
-  * debian/rules: Run dh_makeshlibs for the speech-dispatcher package as
-    well.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri, 14 Dec 2007 10:35:42 +1100
-
-speech-dispatcher (0.6.5-1ubuntu1) hardy; urgency=low
-
-  * Merge from debian unstable, remaining changes:
-    - Add python-all-dev to build-depends. (Fix FTBFS)
-    - Add lpia to the list of architectures for libasound2-dev.
-    - Python-speechd should depend on speech-dispatcher.
-    - Moved the flite output module to a separate package, and added
-      it to suggests.
-    - debian/init.d: Added work-around to ensure /var/run/speech-dispatcher is created
-      at boot due to /var/run being mounted tmpfs.
-    - debian/speech-dispatcher.postrm: Add check for
-      /var/run/speech-dispatcher and do not try to remove if not
-      present.
-    - Set myself as maintainer. 
-  * Ubuntu changes dropped:
-    - Fix some variable data size inconsistancies, causing crashes on
-      64-bit systems. Applied upstream.
-    - Endian fixes to speech drivers, and the audio output library. Applied
-      upstream.
-    - Changed default speech synthesizer to the new espeak driver. Applied
-      upstream.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Sat, 01 Dec 2007 22:34:55 +1100
-
-speech-dispatcher (0.6.5-1) unstable; urgency=low
-
-  * New upstream version.
-  * Use dpatch for upstream patches.
-
- -- Milan Zamazal <pdm@debian.org>  Fri, 30 Nov 2007 19:18:46 +0100
-
-speech-dispatcher (0.6.4-2ubuntu2) hardy; urgency=low
-
-  * Add python-all-dev to build-depends. (Fix FTBFS)
-  * Add lpia to the list of architectures for libasound2-dev.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Tue, 27 Nov 2007 17:47:57 +1100
-
-speech-dispatcher (0.6.4-2ubuntu1) hardy; urgency=low
-
-  * Merge from debian unstable, remaining changes:
-    - Fix some variable data size inconsistancies, causing crashes on
-      64-bit systems.
-    - Python-speechd should depend on speech-dispatcher.
-    - Endian fixes to speech drivers, and the audio output library.
-    - Changed default speech synthesizer to the new espeak driver.
-    - Moved the flite output module to a separate package, and added
-      it to suggests.
-    - debian/init.d: Added work-around to ensure /var/run/speech-dispatcher is created
-      at boot due to /var/run being mounted tmpfs.
-    - debian/speech-dispatcher.postrm: Add check for
-      /var/run/speech-dispatcher and do not try to remove if not
-      present.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Tue, 27 Nov 2007 08:07:51 +1100
-
-speech-dispatcher (0.6.4-2) unstable; urgency=low
-
-  * Build-depend on libespeak-dev.
-
- -- Milan Zamazal <pdm@debian.org>  Fri, 31 Aug 2007 09:30:15 +0200
-
-speech-dispatcher (0.6.4-1) unstable; urgency=low
-
-  * New upstream version.
-  * debian/rules: Don't `make distclean' result.
-  * debian/control: Use ${*:Version} instead of ${Source-Version}.
-
- -- Milan Zamazal <pdm@debian.org>  Wed, 29 Aug 2007 14:38:54 +0200
-
-speech-dispatcher (0.6.4~beta1+cvs20070807-0ubuntu5) gutsy; urgency=low
-
-  * debian/patches/02_size_t_fix.dpatch:
-    - Fix some variable data size inconsistancies, causing crashes on
-      64-bit systems. Thanks to Mike Gorse <mgorse@alum.wpi.edu>
-
- -- Luke Yelavich <themuso@ubuntu.com>  Mon, 24 Sep 2007 10:54:28 +1000
-
-speech-dispatcher (0.6.4~beta1+cvs20070807-0ubuntu4) gutsy; urgency=low
-
-  * S in source should be lower case. Go me!
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri, 14 Sep 2007 15:20:07 +1000
-
-speech-dispatcher (0.6.4~beta1+cvs20070807-0ubuntu3) gutsy; urgency=low
-
-  * Python-speechd should depend on speech-dispatcher.
-  * Fix lintian warnings.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri, 14 Sep 2007 14:59:37 +1000
-
-speech-dispatcher (0.6.4~beta1+cvs20070807-0ubuntu2) gutsy; urgency=low
-
-  * debian/control: Add dpatch to build-depends.
-  * debian/patches/01_audio_endian_fix.dpatch:
-    - Endian fixes to speech drivers, and the audio output library.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Wed, 12 Sep 2007 14:34:07 +1000
-
-speech-dispatcher (0.6.4~beta1+cvs20070807-0ubuntu1) gutsy; urgency=low
-
-  * New upstream CVS snapshot.
-  * Added libsndfile1-dev, pkg-config, and libespeak-dev as 
-    dependencies.
-  * Changed default speech synthesizer to the new espeak driver.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Thu, 16 Aug 2007 14:14:26 +1000
-
-speech-dispatcher (0.6.2-3ubuntu1) gutsy; urgency=low
-
-  * Merge from Debian unstable. Remaining Ubuntu changes:
-    - Change default speech-dispatcher configuration to use espeak.
-    - Set Luke Yelavich as Ubuntu package maintainer.
-    - debian/control: Add python-dev as a dependency.
-    - Moved the flite output module to a separate package, and added
-      it to suggests.
-    - debian/init.d: Added work-around to ensure /var/run/speech-dispatcher is created
-      at boot due to /var/run being mounted tmpfs.
-    - debian/speech-dispatcher.postrm: Add check for
-      /var/run/speech-dispatcher and do not try to remove if not
-      present.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri, 04 May 2007 17:14:18 +1000
-
-speech-dispatcher (0.6.2-3) unstable; urgency=low
-
-  * Add missing upstream cleanup actions.
-
- -- Milan Zamazal <pdm@debian.org>  Tue,  1 May 2007 10:37:42 +0200
-
-speech-dispatcher (0.6.2-2) experimental; urgency=low
-
-  * debian/rules: Don't fail when building arch-dep target without Python;
-    closes: #412995.
-  * Upload to experimental because etch is in freeze.
-
- -- Milan Zamazal <pdm@debian.org>  Thu,  1 Mar 2007 18:38:08 +0100
-
-speech-dispatcher (0.6.2-1) experimental; urgency=low
-
-  * New upstream version.
-  * Upload to experimental because etch is in freeze.
-  * LSB section added to the init script, use LSB functions for printing
-    messages.
-  * Don't call dh_python in rules.
-
- -- Milan Zamazal <pdm@debian.org>  Wed, 28 Feb 2007 12:27:31 +0100
-
-speech-dispatcher (0.6.1-3) unstable; urgency=low
-
-  * debian/rules: Actually use the CFLAGS variable.
-
- -- Milan Zamazal <pdm@debian.org>  Mon,  6 Nov 2006 09:58:02 +0100
-
-speech-dispatcher (0.6.2-0ubuntu1) gutsy; urgency=low
-
-  * New upstream release
-  * Ensure espeak is set as default in config/speechd.conf.in.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Mon, 30 Apr 2007 10:42:36 +1000
-
-speech-dispatcher (0.6.1-2ubuntu3) feisty; urgency=low
-
-  * Change default speech-dispatcher configuration to use espeak.
-  * Move espeak from recommends to depends for the speech-dispatcher 
-    package.
-  * Set myself as Ubuntu package maintainer.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Sat, 24 Mar 2007 10:58:54 +1100
-
-speech-dispatcher (0.6.1-2ubuntu2) feisty; urgency=low
-
-  * debian/control:
-    - Add python-dev as a dependency.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Fri,  2 Feb 2007 23:05:59 +1100
-
-speech-dispatcher (0.6.1-2ubuntu1) edgy; urgency=low
-
-  * Merge from debian unstable.
-  * Moved the flite output module to a separate package, and added it to
-    suggests.
-  * Configure speech-dispatcher to use festival by default.
-  * Removed the speech-dispatcher-festival metapackage, and added 
-    festival-freebsoft-utils to the depends field of speech-dispatcher.
-  * Add espeak to suggests.
-
- -- Luke Yelavich <themuso@ubuntu.com>  Thu,  3 Aug 2006 13:06:55 +1000
-
-speech-dispatcher (0.6.1-2) unstable; urgency=low
-
-  * python-speechd updated to the new Python policy; closes: #380959.
-
- -- Milan Zamazal <pdm@debian.org>  Tue,  1 Aug 2006 13:03:45 +0200
-
-speech-dispatcher (0.6.1-1) unstable; urgency=low
-
-  * New upstream version.
-  * New binary package python-speechd.
-
- -- Milan Zamazal <pdm@debian.org>  Tue, 25 Jul 2006 17:42:29 +0200
-
-speech-dispatcher (0.6-6) unstable; urgency=low
-
-  * Build-depend on libasound2-dev only on Linux architectures;
-    closes: #377889.
-
- -- Milan Zamazal <pdm@debian.org>  Wed, 12 Jul 2006 09:14:06 +0200
-
-speech-dispatcher (0.6-5) unstable; urgency=low
-
-  * Don't fail in postinst when speech-dispatcher doesn't start.
-  * Standards 3.7.2 (no real change).
-
- -- Milan Zamazal <pdm@debian.org>  Mon, 10 Jul 2006 14:39:31 +0200
-
-speech-dispatcher (0.6-4ubuntu1) edgy; urgency=low
-
-  * Merge newer debian version:
-    + debian/init.d:
-      Added work-around to ensure /var/run/speech-dispatcher is created at
-      boot due to /var/run being mounted tmpfs.
-    + debian/speech-dispatcher.postrm:
-      Add check for /var/run/speech-dispatcher and do not try to remove if
-      not present.
-
- -- Stefan Potyra <sistpoty@ubuntu.com>  Fri,  7 Jul 2006 15:36:04 +0200
 
 speech-dispatcher (0.6-4) unstable; urgency=low
 

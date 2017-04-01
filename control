@@ -11,13 +11,13 @@ Build-Depends:
  debhelper (>= 9.20150628),
  dh-autoreconf,
  flite1-dev (>= 1.4),
- libvoxin1,
+ libvoxin1, 
  intltool,
  libao-dev,
  libasound2-dev [linux-any],
  libaudio-dev,
  libdotconf-dev (>= 1.3),
- libespeak-dev,
+ libespeak-dev, libespeak-ng-dev,
  libglib2.0-dev,
  libltdl-dev,
  libpulse-dev,
@@ -33,6 +33,28 @@ Homepage: http://devel.freebsoft.org/speechd
 X-Python-Version: >= 3.0
 Standards-Version: 3.9.8
 
+#Package: speech-dispatcher-pico
+#Architecture: any
+#Depends:
+# ${shlibs:Depends},
+# ${misc:Depends},
+# speech-dispatcher (>= ${source:Upstream-Version}),
+# speech-dispatcher (<< ${source:Upstream-Version}.0~)
+#Breaks: speech-dispatcher-contrib (<< 0.8.5-5)
+#Replaces: speech-dispatcher-contrib (<< 0.8.5-5)
+#Description: Speech Dispatcher: Pico output module
+# Speech Dispatcher provides a device independent layer for speech synthesis.
+# It supports various software and hardware speech synthesizers as
+# backends and provides a generic layer for synthesizing speech and
+# playing back PCM data via those different backends to applications.
+# .
+# Various high level concepts like enqueueing vs. interrupting speech and
+# application specific user configurations are implemented in a device
+# independent way, therefore freeing the application programmer from
+# having to yet again reinvent the wheel.
+# .
+# This package contains the output module for the pico speech synthesizer.
+#
 Package: speech-dispatcher
 Architecture: any
 Depends:
@@ -42,12 +64,15 @@ Depends:
  ${misc:Depends},
  ${shlibs:Depends}
 Recommends:
-# pulseaudio
+ pulseaudio,
+ speech-dispatcher-espeak-ng
 Suggests:
  libttspico-utils,
  speech-dispatcher-doc-cs,
  speech-dispatcher-festival,
- speech-dispatcher-flite
+ speech-dispatcher-cicero,
+ speech-dispatcher-flite,
+ speech-dispatcher-espeak
 Description: Common interface to speech synthesizers
  Speech Dispatcher provides a device independent layer for speech synthesis.
  It supports various software and hardware speech synthesizers as
@@ -203,24 +228,6 @@ Description: Speech Dispatcher documentation in Czech
  .
  This package contains Czech documentation of Speech Dispatcher.
 
-Package: speech-dispatcher-flite
-Architecture: any
-Depends:
- ${shlibs:Depends},
- ${misc:Depends}
-Description: Speech Dispatcher: Flite output module
- Speech Dispatcher provides a device independent layer for speech synthesis.
- It supports various software and hardware speech synthesizers as
- backends and provides a generic layer for synthesizing speech and
- playing back PCM data via those different backends to applications.
- .
- Various high level concepts like enqueueing vs. interrupting speech and
- application specific user configurations are implemented in a device
- independent way, therefore freeing the application programmer from
- having to yet again reinvent the wheel.
- .
- This package contains the output module for the flite speech synthesizer.
-
 Package: speech-dispatcher-audio-plugins
 Architecture: any
 Multi-arch: same
@@ -245,6 +252,90 @@ Description: Speech Dispatcher: Audio output plugins
  having to yet again reinvent the wheel.
  .
  This package contains all the speech-dispatcher audio output plugins.
+
+Package: speech-dispatcher-flite
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ speech-dispatcher (= ${binary:Version}),
+Breaks: speech-dispatcher (<< 0.8.5-5)
+Replaces: speech-dispatcher (<< 0.8.5-5)
+Description: Speech Dispatcher: Flite output module
+ Speech Dispatcher provides a device independent layer for speech synthesis.
+ It supports various software and hardware speech synthesizers as
+ backends and provides a generic layer for synthesizing speech and
+ playing back PCM data via those different backends to applications.
+ .
+ Various high level concepts like enqueueing vs. interrupting speech and
+ application specific user configurations are implemented in a device
+ independent way, therefore freeing the application programmer from
+ having to yet again reinvent the wheel.
+ .
+ This package contains the output module for the flite speech synthesizer.
+
+Package: speech-dispatcher-cicero
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ speech-dispatcher (= ${binary:Version}),
+Breaks: speech-dispatcher (<< 0.8.5-5)
+Replaces: speech-dispatcher (<< 0.8.5-5)
+Description: Speech Dispatcher: Cicero output module
+ Speech Dispatcher provides a device independent layer for speech synthesis.
+ It supports various software and hardware speech synthesizers as
+ backends and provides a generic layer for synthesizing speech and
+ playing back PCM data via those different backends to applications.
+ .
+ Various high level concepts like enqueueing vs. interrupting speech and
+ application specific user configurations are implemented in a device
+ independent way, therefore freeing the application programmer from
+ having to yet again reinvent the wheel.
+ .
+ This package contains the output module for the cicero speech synthesizer.
+
+Package: speech-dispatcher-espeak
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ speech-dispatcher (= ${binary:Version}),
+Breaks: speech-dispatcher (<< 0.8.5-5)
+Replaces: speech-dispatcher (<< 0.8.5-5)
+Description: Speech Dispatcher: Espeak output module
+ Speech Dispatcher provides a device independent layer for speech synthesis.
+ It supports various software and hardware speech synthesizers as
+ backends and provides a generic layer for synthesizing speech and
+ playing back PCM data via those different backends to applications.
+ .
+ Various high level concepts like enqueueing vs. interrupting speech and
+ application specific user configurations are implemented in a device
+ independent way, therefore freeing the application programmer from
+ having to yet again reinvent the wheel.
+ .
+ This package contains the output module for the espeak speech synthesizer.
+
+Package: speech-dispatcher-espeak-ng
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ speech-dispatcher (= ${binary:Version}),
+Breaks: speech-dispatcher (<< 0.8.5-5)
+Replaces: speech-dispatcher (<< 0.8.5-5)
+Description: Speech Dispatcher: Espeak-ng output module
+ Speech Dispatcher provides a device independent layer for speech synthesis.
+ It supports various software and hardware speech synthesizers as
+ backends and provides a generic layer for synthesizing speech and
+ playing back PCM data via those different backends to applications.
+ .
+ Various high level concepts like enqueueing vs. interrupting speech and
+ application specific user configurations are implemented in a device
+ independent way, therefore freeing the application programmer from
+ having to yet again reinvent the wheel.
+ .
+ This package contains the output module for the espeak-ng speech synthesizer.
 
 Package: speech-dispatcher-voxin
 Architecture: any

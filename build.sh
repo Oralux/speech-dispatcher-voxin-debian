@@ -3,17 +3,18 @@
 unset PV
 
 function build_pkg() {
-	local ARCH=
-	if [ -n "$1" ]; then
-		ARCH="-a $1"
-	fi
-	rm -rf src
-	cp -a src.orig src
-	cp control changelog speech-dispatcher-voxin.install src/speech-dispatcher-$PV/debian
-
-	cd src/speech-dispatcher-$PV
-	dpkg-buildpackage -uc -us $ARCH
-	cd ../..	
+    local ARCH=
+    if [ -n "$1" ]; then
+	ARCH="-a $1"
+    fi
+    rm -rf src
+    cp -a src.orig src
+    cp control changelog speech-dispatcher-voxin.install src/speech-dispatcher-$PV/debian
+    cp dictionary-creation.patch src/speech-dispatcher-$PV/debian/patches
+    echo dictionary-creation.patch >> src/speech-dispatcher-$PV/debian/patches/series
+    cd src/speech-dispatcher-$PV
+    dpkg-buildpackage -uc -us $ARCH
+    cd ../..	
 }
 
 if [ ! -d src.orig ]; then

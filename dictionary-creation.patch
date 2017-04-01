@@ -1,0 +1,120 @@
+Index: speech-dispatcher/src/modules/ibmtts.c
+===================================================================
+--- speech-dispatcher.orig/src/modules/ibmtts.c
++++ speech-dispatcher/src/modules/ibmtts.c
+@@ -250,7 +250,7 @@
+ static void ibmtts_set_synthesis_voice(char *);
+ static void ibmtts_set_rate(signed int rate);
+ static void ibmtts_set_pitch(signed int pitch);
+-static void ibmtts_set_punctuation_mode(SPDPunctuation punct_mode);
++static void ibmtts_set_punctuation_mode(SPDPunctuation mode);
+ static void ibmtts_set_volume(signed int pitch);
+ 
+ /* locale_index_atomic stores the current index of the eciLocales array.
+@@ -318,6 +318,13 @@
+ 	char *charset;
+ } eciLocale, *eciLocaleList;
+ 
++typedef struct {
++  TIbmttsBool modified;
++  int mode;
++} TPunctuation;
++
++static TPunctuation punctuation;
++
+ static eciLocale eciLocales[] = {
+ 	{
+ 	 "American_English", "en", "US", eciGeneralAmericanEnglish,
+@@ -482,12 +489,6 @@
+ 	/* enable annotations */
+ 	eciSetParam(eciHandle, eciInputType, 1);
+ 
+-	/* load possibly the ssml filter */
+-	eciAddText(eciHandle, " `gfa1 ");
+-
+-	/* load possibly the punctuation filter */
+-	eciAddText(eciHandle, " `gfa2 ");
+-
+ 	ibmtts_set_punctuation_mode(msg_settings.punctuation_mode);
+ 
+ 	alloc_voice_list();
+@@ -928,9 +929,10 @@
+ 	char *part = NULL;
+ 	int part_len = 0;
+ 	int ret;
+-
++	static int once = 0;
++	
+ 	DBG("Ibmtts: Synthesis thread starting.......\n");
+-
++	
+ 	/* Block all signals to this thread. */
+ 	set_speaking_thread_parameters();
+ 
+@@ -959,6 +961,23 @@
+ 		pos = *ibmtts_message;
+ 		ibmtts_load_user_dictionary();
+ 
++		if (!once) {
++			/* load possibly the ssml filter */
++			eciAddText(eciHandle, " `gfa1 ");
++			
++			/* load possibly the punctuation filter */
++			eciAddText(eciHandle, " `gfa2 ");
++			once = 1;
++		}
++
++		if (punctuation.modified) {
++			const char *fmt = "`Pf%d%s";
++			char *msg = g_strdup_printf(fmt, punctuation.mode, IbmttsPunctuationList);
++			punctuation.modified = IBMTTS_FALSE;
++			eciAddText(eciHandle, msg);
++			g_free(msg);
++		}
++		
+ 		switch (ibmtts_message_type) {
+ 		case SPD_MSGTYPE_TEXT:
+ 			eciSetParam(eciHandle, eciTextMode, eciTextModeDefault);
+@@ -998,7 +1017,7 @@
+ 			eciSetParam(eciHandle, eciTextMode, eciTextModeDefault);
+ 			break;
+ 		case SPD_MSGTYPE_SPELL:
+-			if (SPD_PUNCT_NONE != msg_settings.punctuation_mode)
++			if (0 != punctuation.mode)
+ 				eciSetParam(eciHandle, eciTextMode,
+ 					    eciTextModeAllSpell);
+ 			else
+@@ -1125,27 +1144,20 @@
+ 		DBG("Ibmtts: Pitch set to %i.", pitchBaseline);
+ }
+ 
+-static void ibmtts_set_punctuation_mode(SPDPunctuation punct_mode)
++static void ibmtts_set_punctuation_mode(SPDPunctuation mode)
+ {
+-	const char *fmt = "`Pf%d%s";
+-	char *msg = NULL;
+-	int real_punct_mode = 0;
+-
+-	switch (punct_mode) {
++	switch (mode) {
+ 	case SPD_PUNCT_NONE:
+-		real_punct_mode = 0;
++		punctuation.mode = 0;
+ 		break;
+ 	case SPD_PUNCT_SOME:
+-		real_punct_mode = 2;
++		punctuation.mode = 2;
+ 		break;
+ 	case SPD_PUNCT_ALL:
+-		real_punct_mode = 1;
++		punctuation.mode = 1;
+ 		break;
+ 	}
+-
+-	msg = g_strdup_printf(fmt, real_punct_mode, IbmttsPunctuationList);
+-	eciAddText(eciHandle, msg);
+-	g_free(msg);
++	punctuation.modified =  IBMTTS_TRUE;
+ }
+ 
+ static char *ibmtts_voice_enum_to_str(SPDVoiceType voice)
